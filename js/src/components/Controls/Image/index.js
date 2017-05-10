@@ -55,10 +55,14 @@ class ImageControl extends Component {
 
   addImage: Function = (src: string, height: string, width: string): void => {
     const { editorState, onChange } = this.props;
+    editorState.getCurrentContent()
+      .createEntity('UNSTYLED', 'MUTABLE', {});
+
     const entityKey = editorState
       .getCurrentContent()
       .createEntity('IMAGE', 'MUTABLE', { src, height, width })
       .getLastCreatedEntityKey();
+
     const newEditorState = AtomicBlockUtils.insertAtomicBlock(
       editorState,
       entityKey,
